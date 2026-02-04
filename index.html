@@ -220,8 +220,7 @@
         }
 
         .agent-launch-btn::before {
-            content: '💬';
-            font-size: 24px;
+            content: '';
         }
 
         /* Features Grid */
@@ -569,10 +568,10 @@
             container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             
             // Replace loading content with iframe
-            // TODO: Replace 'YOUR_AGENTFORCE_AGENT_URL' with your actual Agentforce agent URL
-            const agentUrl = 'YOUR_AGENTFORCE_AGENT_URL'; // Update this with your agent URL
+            // Embedded Service URL for Patient Support Agent
+            const agentUrl = 'https://orgfarm-87f829cb8b--crndevpro.sandbox.my.site.com/ESWWeb1770233686536';
             
-            if (agentUrl !== 'YOUR_AGENTFORCE_AGENT_URL') {
+            if (agentUrl && agentUrl.includes('salesforce')) {
                 content.innerHTML = `<iframe class="agent-iframe" src="${agentUrl}" title="Patient Support Agent"></iframe>`;
             } else {
                 // Demo mode - show placeholder
@@ -618,5 +617,27 @@
             }
         });
     </script>
+
+    <!-- Salesforce Embedded Messaging for Patient Support Agent -->
+    <script type='text/javascript'>
+        function initEmbeddedMessaging() {
+            try {
+                embeddedservice_bootstrap.settings.language = 'en_US';
+
+                embeddedservice_bootstrap.init(
+                    '00DAs00000tKh4L',
+                    'Web',
+                    'https://orgfarm-87f829cb8b--crndevpro.sandbox.my.site.com/ESWWeb1770233686536',
+                    {
+                        scrt2URL: 'https://orgfarm-87f829cb8b--crndevpro.sandbox.my.salesforce-scrt.com'
+                    }
+                );
+            } catch (err) {
+                console.error('Error loading Embedded Messaging: ', err);
+            }
+        };
+    </script>
+    <script type='text/javascript' src='https://orgfarm-87f829cb8b--crndevpro.sandbox.my.site.com/ESWWeb1770233686536/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 </body>
 </html>
+
