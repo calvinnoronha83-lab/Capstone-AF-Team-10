@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GlobalCare Health - Patient Support</title>
+    <title>Worldwide Health - Patient Support</title>
     <style>
         * {
             margin: 0;
@@ -13,9 +13,9 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 20%, #06b6d4 40%, #10b981 60%, #059669 80%, #047857 100%);
             background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            animation: gradientShift 20s ease infinite;
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
@@ -27,7 +27,7 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Medical pattern overlay */
+        /* Global pattern overlay - world map inspired */
         body::before {
             content: '';
             position: absolute;
@@ -36,12 +36,32 @@
             right: 0;
             bottom: 0;
             background-image: 
-                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
-                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
-                radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.1) 2px, transparent 2px);
-            background-size: 100px 100px, 150px 150px, 200px 200px;
-            opacity: 0.3;
+                radial-gradient(circle at 15% 30%, rgba(255, 255, 255, 0.08) 3px, transparent 3px),
+                radial-gradient(circle at 85% 70%, rgba(255, 255, 255, 0.08) 3px, transparent 3px),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.06) 4px, transparent 4px),
+                radial-gradient(circle at 30% 80%, rgba(255, 255, 255, 0.08) 2px, transparent 2px),
+                radial-gradient(circle at 70% 20%, rgba(255, 255, 255, 0.08) 2px, transparent 2px);
+            background-size: 200px 200px, 250px 250px, 300px 300px, 180px 180px, 220px 220px;
+            opacity: 0.4;
             pointer-events: none;
+        }
+        
+        /* Globe icon decoration */
+        body::after {
+            content: '🌍';
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 120px;
+            opacity: 0.05;
+            z-index: 0;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
         }
 
         .container {
@@ -75,7 +95,7 @@
         .logo-icon {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #10b981 100%);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -83,6 +103,7 @@
             color: white;
             font-size: 28px;
             font-weight: bold;
+            box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
         }
 
         .logo-text h1 {
@@ -111,7 +132,20 @@
         }
 
         nav a:hover {
-            color: #667eea;
+            color: #1e40af;
+        }
+        
+        /* Language selector styling */
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: rgba(30, 64, 175, 0.1);
+            border-radius: 20px;
+            font-size: 14px;
+            color: #1e40af;
+            font-weight: 500;
         }
 
         /* Hero Section */
@@ -144,7 +178,7 @@
 
         /* Agent Launch Button */
         .agent-launch-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #10b981 100%);
             color: white;
             border: none;
             padding: 18px 45px;
@@ -152,18 +186,33 @@
             font-weight: 600;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 30px rgba(30, 64, 175, 0.4);
             transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
             gap: 12px;
             text-transform: uppercase;
             letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .agent-launch-btn::after {
+            content: '🌐';
+            position: absolute;
+            right: 20px;
+            font-size: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
 
         .agent-launch-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 15px 40px rgba(30, 64, 175, 0.6);
         }
 
         .agent-launch-btn:active {
@@ -199,13 +248,14 @@
         .feature-icon {
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #10b981 100%);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 28px;
             margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(30, 64, 175, 0.2);
         }
 
         .feature-card h3 {
@@ -326,6 +376,15 @@
             .features {
                 grid-template-columns: 1fr;
             }
+            
+            .global-stats {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            body::after {
+                display: none;
+            }
         }
 
         /* Loading State */
@@ -337,12 +396,44 @@
 
         .spinner {
             border: 4px solid #e2e8f0;
-            border-top: 4px solid #667eea;
+            border-top: 4px solid #1e40af;
             border-radius: 50%;
             width: 40px;
             height: 40px;
             animation: spin 1s linear infinite;
             margin: 0 auto 20px;
+        }
+        
+        /* Global stats banner */
+        .global-stats {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px 40px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1e40af;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #718096;
+            margin-top: 5px;
         }
 
         @keyframes spin {
@@ -356,10 +447,10 @@
         <!-- Header -->
         <header>
             <div class="logo">
-                <div class="logo-icon">GC</div>
+                <div class="logo-icon">🌍</div>
                 <div class="logo-text">
-                    <h1>GlobalCare Health</h1>
-                    <p>Your Health, Our Priority</p>
+                    <h1>Worldwide Health</h1>
+                    <p>Healthcare Without Borders</p>
                 </div>
             </div>
             <nav>
@@ -367,43 +458,67 @@
                 <a href="#services">Services</a>
                 <a href="#about">About</a>
                 <a href="#contact">Contact</a>
+                <div class="language-selector">
+                    <span>🌐</span>
+                    <span>EN</span>
+                </div>
             </nav>
         </header>
 
         <!-- Hero Section -->
         <div class="hero">
-            <h2>Welcome to GlobalCare Health</h2>
+            <h2>Welcome to Worldwide Health</h2>
             <p>
-                Your trusted partner in healthcare. Get instant answers to your questions about 
+                Serving millions of patients across the globe. Get instant answers to your questions about 
                 insurance benefits, appointments, prescriptions, and more with our AI-powered 
-                Patient Support Agent.
+                Patient Support Agent - available 24/7 in multiple languages.
             </p>
             <button class="agent-launch-btn" onclick="launchAgent()">
                 Launch Patient Support Agent
             </button>
         </div>
+        
+        <!-- Global Stats -->
+        <div class="global-stats">
+            <div class="stat-item">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Countries</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">5M+</span>
+                <span class="stat-label">Patients Served</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Support Available</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">15+</span>
+                <span class="stat-label">Languages</span>
+            </div>
+        </div>
 
         <!-- Features -->
         <div class="features">
             <div class="feature-card">
-                <div class="feature-icon">🏥</div>
-                <h3>24/7 Support</h3>
-                <p>Get answers to your healthcare questions anytime, day or night. Our AI agent is always available to help.</p>
+                <div class="feature-icon">🌍</div>
+                <h3>Global Reach</h3>
+                <p>Access healthcare support from anywhere in the world. Our multilingual AI agent serves patients across 50+ countries.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">💊</div>
                 <h3>Insurance Benefits</h3>
-                <p>Quickly check your insurance coverage, benefits, and remaining limits for various medical services.</p>
+                <p>Quickly check your insurance coverage, benefits, and remaining limits for various medical services worldwide.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📅</div>
                 <h3>Appointment Scheduling</h3>
-                <p>Schedule, reschedule, or check your upcoming appointments with ease through our intelligent assistant.</p>
+                <p>Schedule, reschedule, or check your upcoming appointments with ease through our intelligent assistant, available in your timezone.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🔒</div>
                 <h3>Secure & Compliant</h3>
-                <p>All interactions are secure, HIPAA-compliant, and designed to protect your privacy and health information.</p>
+                <p>All interactions are secure, HIPAA-compliant, and meet international data protection standards to protect your privacy.</p>
             </div>
         </div>
 
@@ -431,9 +546,13 @@
 
         <!-- Footer -->
         <footer>
-            <p>&copy; 2026 GlobalCare Health. All rights reserved.</p>
+            <p>&copy; 2026 Worldwide Health. All rights reserved.</p>
             <p style="margin-top: 10px; font-size: 12px;">
-                Serving patients worldwide with compassionate, innovative healthcare solutions.
+                🌍 Serving patients across 50+ countries with compassionate, innovative healthcare solutions.<br>
+                Available in 15+ languages | 24/7 Support | Global Compliance Standards
+            </p>
+            <p style="margin-top: 15px; font-size: 11px; opacity: 0.8;">
+                🌐 North America | 🌍 Europe | 🌏 Asia-Pacific | 🌎 Latin America | 🌍 Middle East & Africa
             </p>
         </footer>
     </div>
