@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlobalCare Health - Patient Support</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Medical pattern overlay */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
+                radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.1) 2px, transparent 2px);
+            background-size: 100px 100px, 150px 150px, 200px 200px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .logo-text h1 {
+            color: #2d3748;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: -5px;
+        }
+
+        .logo-text p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        nav a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .hero h2 {
+            font-size: 42px;
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #718096;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Agent Launch Button */
+        .agent-launch-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .agent-launch-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .agent-launch-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .agent-launch-btn::before {
+            content: '💬';
+            font-size: 24px;
+        }
+
+        /* Features Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            color: #2d3748;
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: #718096;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* Agent Container */
+        .agent-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: none;
+            margin-top: 30px;
+        }
+
+        .agent-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .agent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .agent-header h3 {
+            color: #2d3748;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-btn {
+            background: #e2e8f0;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            color: #4a5568;
+            transition: all 0.3s;
+        }
+
+        .close-btn:hover {
+            background: #cbd5e0;
+            transform: rotate(90deg);
+        }
+
+        .agent-iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 10px;
+            background: #f7fafc;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h2 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #718096;
+        }
+
+        .spinner {
+            border: 4px solid #e2e8f0;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <div class="logo-icon">GC</div>
+                <div class="logo-text">
+                    <h1>GlobalCare Health</h1>
+                    <p>Your Health, Our Priority</p>
+                </div>
+            </div>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#services">Services</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <div class="hero">
+            <h2>Welcome to GlobalCare Health</h2>
+            <p>
+                Your trusted partner in healthcare. Get instant answers to your questions about 
+                insurance benefits, appointments, prescriptions, and more with our AI-powered 
+                Patient Support Agent.
+            </p>
+            <button class="agent-launch-btn" onclick="launchAgent()">
+                Launch Patient Support Agent
+            </button>
+        </div>
+
+        <!-- Features -->
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🏥</div>
+                <h3>24/7 Support</h3>
+                <p>Get answers to your healthcare questions anytime, day or night. Our AI agent is always available to help.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💊</div>
+                <h3>Insurance Benefits</h3>
+                <p>Quickly check your insurance coverage, benefits, and remaining limits for various medical services.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📅</div>
+                <h3>Appointment Scheduling</h3>
+                <p>Schedule, reschedule, or check your upcoming appointments with ease through our intelligent assistant.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Secure & Compliant</h3>
+                <p>All interactions are secure, HIPAA-compliant, and designed to protect your privacy and health information.</p>
+            </div>
+        </div>
+
+        <!-- Agent Container -->
+        <div id="agentContainer" class="agent-container">
+            <div class="agent-header">
+                <h3>
+                    <span>💬</span>
+                    Patient Support Agent
+                </h3>
+                <button class="close-btn" onclick="closeAgent()">×</button>
+            </div>
+            <div id="agentContent">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading Patient Support Agent...</p>
+                    <p style="margin-top: 20px; font-size: 14px; color: #a0aec0;">
+                        <!-- Replace this URL with your actual Agentforce agent URL -->
+                        <em>Agent will be embedded here. Update the iframe src in the launchAgent() function.</em>
+                    </p>
+                </div>
+                <!-- Agent iframe will be inserted here -->
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2026 GlobalCare Health. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 12px;">
+                Serving patients worldwide with compassionate, innovative healthcare solutions.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function launchAgent() {
+            const container = document.getElementById('agentContainer');
+            const content = document.getElementById('agentContent');
+            
+            // Show container
+            container.classList.add('active');
+            
+            // Scroll to agent
+            container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // Replace loading content with iframe
+            // TODO: Replace 'YOUR_AGENTFORCE_AGENT_URL' with your actual Agentforce agent URL
+            const agentUrl = 'YOUR_AGENTFORCE_AGENT_URL'; // Update this with your agent URL
+            
+            if (agentUrl !== 'YOUR_AGENTFORCE_AGENT_URL') {
+                content.innerHTML = `<iframe class="agent-iframe" src="${agentUrl}" title="Patient Support Agent"></iframe>`;
+            } else {
+                // Demo mode - show placeholder
+                setTimeout(() => {
+                    content.innerHTML = `
+                        <div style="padding: 40px; text-align: center; background: #f7fafc; border-radius: 10px;">
+                            <div style="font-size: 48px; margin-bottom: 20px;">🤖</div>
+                            <h3 style="color: #2d3748; margin-bottom: 15px;">Patient Support Agent</h3>
+                            <p style="color: #718096; margin-bottom: 30px;">
+                                To connect your Agentforce agent, update the <code>agentUrl</code> variable 
+                                in the launchAgent() function with your agent's URL.
+                            </p>
+                            <div style="background: white; padding: 20px; border-radius: 8px; text-align: left; max-width: 600px; margin: 0 auto;">
+                                <p style="color: #4a5568; margin-bottom: 10px;"><strong>Example questions you can ask:</strong></p>
+                                <ul style="color: #718096; line-height: 2;">
+                                    <li>"What are my insurance benefits for physical therapy?"</li>
+                                    <li>"When is my next appointment?"</li>
+                                    <li>"How do I refill my prescription?"</li>
+                                    <li>"What's my deductible remaining?"</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                }, 1500);
+            }
+        }
+
+        function closeAgent() {
+            const container = document.getElementById('agentContainer');
+            container.classList.remove('active');
+        }
+
+        // Close agent when clicking outside (optional)
+        document.addEventListener('click', function(event) {
+            const container = document.getElementById('agentContainer');
+            const btn = document.querySelector('.agent-launch-btn');
+            
+            if (container.classList.contains('active') && 
+                !container.contains(event.target) && 
+                !btn.contains(event.target)) {
+                // Uncomment to enable click-outside-to-close
+                // closeAgent();
+            }
+        });
+    </script>
+</body>
+</html>
