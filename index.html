@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <title>Worldwide Health - Patient Support</title>
     <style>
         body {
@@ -32,38 +33,26 @@
         <p>Our Patient Support Agent is loading automatically...</p>
     </div>
 
-    <script type='text/javascript'>
-        // 1. Listen for the "Ready" event to auto-open the agent instantly
-        window.addEventListener("onEmbeddedMessagingReady", () => {
-            console.log("Agent ready. Launching chat...");
-            embeddedservice_bootstrap.utilAPI.launchChat()
-                .then(() => console.log("Chat launched successfully!"))
-                .catch((err) => console.error("Chat launch failed:", err));
-        });
+  <script type='text/javascript'>
+	function initEmbeddedMessaging() {
+		try {
+			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
 
-        // 2. Initialize the Messaging Service
-        function initEmbeddedMessaging() {
-            try {
-                embeddedservice_bootstrap.settings.language = 'en_US'; 
-                
-                embeddedservice_bootstrap.init(
-                    '00DAs00000tKh4L',
-                    'Web',
-                    'https://orgfarm-87f829cb8b--crndevpro.sandbox.my.site.com/ESWWeb1770233686536',
-                    {
-                        scrt2URL: 'https://orgfarm-87f829cb8b--crndevpro.sandbox.my.salesforce-scrt.com'
-                    }
-                );
-            } catch (err) {
-                console.error('Error loading Embedded Messaging: ', err);
-            }
-        };
-    </script>
+			embeddedservice_bootstrap.init(
+				'00DAs00000tKh4L',
+				'Web',
+				'https://orgfarm-87f829cb8b--crndevpro.sandbox.my.site.com/ESWWeb1770233686536',
+				{
+					scrt2URL: 'https://orgfarm-87f829cb8b--crndevpro.sandbox.my.salesforce-scrt.com'
+				}
+			);
+		} catch (err) {
+			console.error('Error loading Embedded Messaging: ', err);
+		}
+	};
+</script>
+<script type='text/javascript' src='https://orgfarm-87f829cb8b--crndevpro.sandbox.my.site.com/ESWWeb1770233686536/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 
-    <script type='text/javascript' 
-            src='https://orgfarm-87f829cb8b--crndevpro.sandbox.my.site.com/ESWWeb1770233686536/assets/js/bootstrap.min.js' 
-            onload='initEmbeddedMessaging()'>
-    </script>
 
 </body>
 </html>
