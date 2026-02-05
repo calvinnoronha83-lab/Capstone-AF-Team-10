@@ -3,37 +3,486 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <title>Worldwide Health - Patient Support</title>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #1e3a8a, #10b981);
-            color: white;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section - Full Screen */
+        .hero {
+            min-height: 100vh;
+            position: relative;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            text-align: center;
+            padding: 0 24px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                180deg,
+                rgba(0,0,0,0.3) 0%,
+                rgba(0,0,0,0.5) 50%,
+                rgba(0,0,0,0.95) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(90deg, #00d4aa, #00b4d8, #0096c7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: rgba(255,255,255,0.7);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-weight: 400;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 36px;
+            background: #fff;
+            color: #000;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .hero-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 60px rgba(255,255,255,0.2);
+        }
+
+        .hero-cta svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        .scroll-indicator svg {
+            width: 32px;
+            height: 32px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Navigation - Minimal */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 24px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: transparent;
+            transition: background 0.3s;
+        }
+
+        nav.scrolled {
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(20px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .logo span {
+            color: #00d4aa;
+        }
+
+        /* Features - Clean Grid */
+        .features {
+            padding: 120px 48px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #00d4aa;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 60px;
+            max-width: 700px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .feature-item {
+            background: #0a0a0a;
+            padding: 48px;
+            transition: background 0.3s;
+        }
+
+        .feature-item:hover {
+            background: #111;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 24px;
+        }
+
+        .feature-item h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .feature-item p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Stats - Large Numbers */
+        .stats {
+            padding: 100px 48px;
+            background: #0a0a0a;
+        }
+
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 48px;
             text-align: center;
         }
-        .message {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+
+        .stat-number {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 700;
+            background: linear-gradient(90deg, #00d4aa, #00b4d8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 150px 48px;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0,212,170,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .cta-section p {
+            color: rgba(255,255,255,0.6);
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 48px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            margin-left: 32px;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #00d4aa;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px 24px;
+            }
+            .features {
+                padding: 80px 24px;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats {
+                padding: 60px 24px;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px;
+            }
+            .cta-section {
+                padding: 100px 24px;
+            }
+            footer {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+            footer a {
+                margin: 0 16px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="message">
-        <h1>Welcome to Worldwide Health</h1>
-        <p>Our Patient Support Agent is loading automatically...</p>
-    </div>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="logo">Worldwide<span>Health</span></div>
+    </nav>
 
-  <script type='text/javascript'>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?ixlib=rb-4.0.3&auto=format&fit=crop&w=2091&q=80" alt="Healthcare">
+        </div>
+        <div class="hero-content">
+            <h1>Healthcare,<br><span>reimagined.</span></h1>
+            <p>Meet your AI-powered health assistant. Get instant answers about insurance, appointments, and care — available 24/7.</p>
+            <button class="hero-cta" onclick="document.querySelector('[class*=embeddedMessaging]')?.click()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+                Talk to AI Agent
+            </button>
+        </div>
+        <div class="scroll-indicator">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="section-label">What We Offer</div>
+        <h2 class="section-title">Everything you need for your healthcare journey.</h2>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">💳</div>
+                <h3>Insurance Benefits</h3>
+                <p>Understand your coverage, deductibles, and copays instantly.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📅</div>
+                <h3>Appointments</h3>
+                <p>Schedule, reschedule, or cancel with a simple conversation.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">💊</div>
+                <h3>Prescriptions</h3>
+                <p>Request refills and track medications effortlessly.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📋</div>
+                <h3>Medical Records</h3>
+                <p>Access your health history and test results securely.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🏥</div>
+                <h3>Find Providers</h3>
+                <p>Locate in-network doctors and specialists near you.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🔔</div>
+                <h3>Smart Reminders</h3>
+                <p>Never miss screenings, vaccinations, or follow-ups.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div>
+                <div class="stat-number">10M+</div>
+                <div class="stat-label">Patients Served</div>
+            </div>
+            <div>
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Always Available</div>
+            </div>
+            <div>
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Satisfaction</div>
+            </div>
+            <div>
+                <div class="stat-number">&lt;30s</div>
+                <div class="stat-label">Response Time</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2>Ready to get started?</h2>
+        <p>Your AI health assistant is just a click away.</p>
+        <button class="hero-cta" onclick="document.querySelector('[class*=embeddedMessaging]')?.click()">
+            Start Conversation
+        </button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div>&copy; 2026 Worldwide Health. All rights reserved.</div>
+        <div>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+            <a href="#">HIPAA</a>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
+
+    <!-- Salesforce Embedded Messaging - DO NOT MODIFY -->
+    <script type='text/javascript'>
 	function initEmbeddedMessaging() {
 		try {
 			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
@@ -52,7 +501,6 @@
 	};
 </script>
 <script type='text/javascript' src='https://orgfarm-87f829cb8b--crndevpro.sandbox.my.site.com/ESWPatientAgentWeb1770270893437/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
-
 
 </body>
 </html>
