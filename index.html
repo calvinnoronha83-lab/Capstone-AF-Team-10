@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <title>Worldwide Health - Patient Support</title>
     <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -486,7 +486,8 @@
 	function initEmbeddedMessaging() {
 		try {
 			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
-
+			embeddedservice_bootstrap.settings.enableUserInputForConversationWithBot = false;
+			embeddedservice_bootstrap.settings.disableStreamingResponses = true; // This might enable progress indicators
 			embeddedservice_bootstrap.init(
 				'00DAs00000tKh4L',
 				'Patient_Agent_Web',
