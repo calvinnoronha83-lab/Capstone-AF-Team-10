@@ -754,6 +754,9 @@
 	function initEmbeddedMessaging() {
 		try {
 			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
+			// Key settings from working example - may help with progress indicators
+			embeddedservice_bootstrap.settings.enableUserInputForConversationWithBot = false;
+			embeddedservice_bootstrap.settings.disableStreamingResponses = true; // This might enable progress indicators
 
 			embeddedservice_bootstrap.init(
 				'00DAs00000tKh4L',
@@ -763,6 +766,7 @@
 					scrt2URL: 'https://orgfarm-87f829cb8b--crndevpro.sandbox.my.salesforce-scrt.com'
 				}
 			);
+			console.log('✅ Embedded Messaging initialized with progress indicator settings');
 		} catch (err) {
 			console.error('Error loading Embedded Messaging: ', err);
 		}
